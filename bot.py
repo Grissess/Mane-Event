@@ -15,9 +15,10 @@ async def on_ready():
 	for server in client.servers:
 		print(server.name)
 
-goal_time = datetime.time(14, 49, 30)
+goal_time = datetime.time(14, 58, 0)
 now = datetime.datetime.now()
-goal = now.replace(day=now.day, hour=goal_time.hour, minute=goal_time.minute, second=goal_time.second, microsecond=0)
+goal = now.replace(hour=goal_time.hour, minute=goal_time.minute, second=goal_time.second, microsecond=0)
+ONE_DAY = datetime.timedelta(days=1)
 
 loop = asyncio.get_event_loop()
 
@@ -32,7 +33,7 @@ async def good_morning():
 		await client.send_message(discord.Object(id='370664588167086090'), msg)
 		print('Good Morning!')
 		# Prepare the next goal time
-		goal = now.replace(day=now.day + 1, hour=goal_time.hour, minute=goal_time.minute, second=goal_time.second, microsecond=0)
+		goal = (now + ONE_DAY).replace(hour=goal_time.hour, minute=goal_time.minute, second=goal_time.second, microsecond=0)
 
 	# In all cases, ensure this is rescheduled (0.5 might be a little eager, but the value does have to be strictly <1 for second accuracy)
 	loop.call_later(0.5, asyncio.ensure_future, good_morning())
