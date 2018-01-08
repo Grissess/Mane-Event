@@ -5,6 +5,10 @@ import os
 import datetime
 import traceback
 import random
+import threading
+import asyncio
+from datetime import datetime
+from threading import Timer
 
 client = discord.Client()
 
@@ -21,22 +25,23 @@ async def on_ready():
 	for server in client.servers:
 		print(server.name)
 
-		
-from datetime import datetime
-from threading import Timer
-
 x=datetime.today()
-y=x.replace(day=x.day+1, hour=10, minute=0, second=0, microsecond=0)
+y=x.replace(day=x.day+1, hour=13, minute=45, second=20, microsecond=0)
 delta_t=y-x
 
-secs=delta_t.seconds+1
+#secs=delta_t.seconds+1
+secs=60
 
-def good_morning():
+async def good_morning():
+	msg = random.choice(['Good Morning Baltimare!', 'It\'s a lovely day in Baltimare!'])
+	await client.send_message(discord.Object(id='370664588167086090'), msg)
 	print('Good Morning!')
-	#msg = random.choice(['Good Morning Baltimare!', 'It\'s a lovely day in Baltimare!'])
-	#await client.send_message(discord.Object(id='370664588167086090'), msg)
 
-t = Timer(secs, good_morning)
+def do_good_morning():
+	loop = asyncio.get_event_loop()
+	loop.run_until_complete(good_morning())
+
+t = Timer(secs, do_good_morning)
 t.start()
 
 # string a is words to delete
