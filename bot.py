@@ -30,8 +30,8 @@ async def good_morning():
 	# Check for inequality down to the second
 	if (now.year, now.month, now.day, now.hour, now.minute, now.second) >= (goal.year, goal.month, goal.day, goal.hour, goal.minute, goal.second):
 		msg = random.choice(['Good Morning Baltimare!', 'It\'s a lovely day in Baltimare!', 'How\'s everypony doing today?', 'It\'s PonyTime™!'])
-		await client.send_message(discord.Object(id='370664588167086090'), msg)
-		print('Good Morning!')
+		await client.send_message(discord.Object(id='370668218546913280'), msg)
+		print('Good Morning message sent!')
 		# Prepare the next goal time
 		goal = (now + ONE_DAY).replace(hour=goal_time.hour, minute=goal_time.minute, second=goal_time.second, microsecond=0)
 
