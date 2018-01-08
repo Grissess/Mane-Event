@@ -7,17 +7,7 @@ import traceback
 
 client = discord.Client()
 
-#my_set = set(open('filename.txt'))
-#badwords_file = open('badwords.txt', 'r+')
-#badwords_set = {}
-#for line in badwords_file:
-#	linesplit = line.split()
-#	badwords_set[linesplit[0]] = linesplit[1:]
-#	Message.split(" ")
-
-
-#This converts 'badwords.txt' to a string and prints it in the console
-
+# This converts 'badwords.txt' to a string and prints it in the console
 #linestring = open('badwords.txt', 'r').read()
 #print (linestring.split('\n'))
 
@@ -46,11 +36,11 @@ async def on_message(message):
 		msg = 'The word \'fuck\' is on the word blacklist for the BronyCon Discord Server. Please refrain from using it in the future.'.format(message)
 		await client.send_message(message.author, msg)
 		msg = 'I\'ve deleted a message from @{} in #{}'.format(message.author.name, message.channel.name)
-		await client.send_message(discord.Object(id='370700700809691136'), msg)
+		await client.send_message(discord.Object(id='399936890574340107'), msg)
 		print(msg)
 	elif b in message.content:
 		msg = 'User @{} mentioned keyword \"{}\" in #{}'.format(message.author.name, b, message.channel.name)
-		await client.send_message(discord.Object(id='370700700809691136'), msg)
+		await client.send_message(discord.Object(id='399936890574340107'), msg)
 		print(msg)
 	return
 
