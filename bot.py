@@ -15,7 +15,7 @@ async def on_ready():
 	for server in client.servers:
 		print(server.name)
 
-goal_time = datetime.time(14, 58, 0)
+goal_time = datetime.time(10, 0, 0)
 now = datetime.datetime.now()
 goal = now.replace(hour=goal_time.hour, minute=goal_time.minute, second=goal_time.second, microsecond=0)
 ONE_DAY = datetime.timedelta(days=1)
@@ -29,7 +29,7 @@ async def good_morning():
 	print('check', (now.year, now.month, now.day, now.hour, now.minute, now.second), (goal.year, goal.month, goal.day, goal.hour, goal.minute, goal.second))
 	# Check for inequality down to the second
 	if (now.year, now.month, now.day, now.hour, now.minute, now.second) >= (goal.year, goal.month, goal.day, goal.hour, goal.minute, goal.second):
-		msg = random.choice(['Good Morning Baltimare!', 'It\'s a lovely day in Baltimare!'])
+		msg = random.choice(['Good Morning Baltimare!', 'It\'s a lovely day in Baltimare!', 'How\'s everypony doing today?', 'It\'s PonyTime™!'])
 		await client.send_message(discord.Object(id='370664588167086090'), msg)
 		print('Good Morning!')
 		# Prepare the next goal time
