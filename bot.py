@@ -35,9 +35,9 @@ async def on_message(message):
 		await client.delete_message(message)
 		msg = '{0.author.mention}, I\'ve deleted your message and sent you a PM explaining why.'.format(message)
 		await client.send_message(message.channel, msg)
-		msg = 'The content {0} is on the word blacklist for the BronyCon Discord Server. Please refrain from using it in the future.'.format(message)
+		msg = 'The content {} is on the word blacklist for the BronyCon Discord Server. Please refrain from using it in the future.'.format(badMatches)
 		await client.send_message(message.author, msg)
-		msg = 'I\'ve deleted a message from @{} in #{}'.format(message.author.name, message.channel.name)
+		msg = 'I\'ve deleted a message from @{} in #{} containing the word {}.'.format(message.author.name, message.channel.name, badMatches)
 		await client.send_message(discord.Object(id='370664588167086090'), msg)
 		print(msg)
 	elif any(keyMatches):
