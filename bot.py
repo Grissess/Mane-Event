@@ -20,11 +20,10 @@ async def on_ready():
 		time.sleep(2)
 		print('DONE!')
 
-
-goal_time = datetime.time(10, 0, 0)
-now = datetime.datetime.now()
-goal = now.replace(hour=goal_time.hour, minute=goal_time.minute, second=goal_time.second, microsecond=0)
 ONE_DAY = datetime.timedelta(days=1)
+goal_time = datetime.time(10, 0, 0)
+now = datetime.datetime.now() + ONE_DAY
+goal = now.replace(hour=goal_time.hour, minute=goal_time.minute, second=goal_time.second, microsecond=0)
 
 loop = asyncio.get_event_loop()
 
