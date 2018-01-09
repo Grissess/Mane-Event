@@ -1,6 +1,33 @@
-import discord, asyncio, re, os, datetime, traceback, random, threading, asyncio, time
+import discord, asyncio, re, os, datetime, traceback, random, threading, asyncio, time, sqlite3
+
+db = sqlite3.connect('bot.sqlite3')
+cur = db.cursor()
+cur.execute('CREATE TABLE IF NOT EXISTS ban_scores (user_id INTEGER PRIMARY KEY, score)')
+
+def get_score(uid):
+	cur.execute('SELECT score FROM ban_scores WHERE user_id = ?', (uid,))
+	row = cur.fetchone()
+	if row is None:
+		return 0
+	return row[0]
+
+def set_score(uid, score):
+	cur.execute('INSERT OR REPLACE INTO ban_scores (user_id, score) VALUES (?, ?)', (uid, score))
+	db.commit()
+
+def add_score(uid, delta_score):
+	set_score(uid, get_score(uid) + delta_score)
+
+SCORE_LIM = 5  # XXX change when more severe increments occur
 
 client = discord.Client()
+
+async def add_score_with_ban(user, delta_score):
+	add_score(user.id, delta_score)
+	score = get_score(user.id)
+	if score > SCORE_LIM:  # strictly > per design spec
+		set_score(user.id, 0)  # XXX maybe delete to keep db small
+		await client.send_message(discord.Object(id='370664588167086090'), f'{user.name}\U0001F528 (score was {score})')  # XXX ban
 
 # This converts 'badwords.txt' to a string and prints it in the console
 #linestring = open('badwords.txt', 'r').read()
@@ -74,7 +101,11 @@ KeyWords = ['keyword', 'suicide', 'kill myself', 'cut myself', 'hang myself', 'n
 
 @client.event
 async def on_message(message):
+	if message.channel.id != '370700700809691136':
+		print('Ignoring a message not from #bot-testing for now...')
+		return
 	testMessage = message.content.lower()
+	print(testMessage)
 	badMatches = [word for word in BannedWords if word + ' ' in testMessage or ' ' + word in testMessage]
 	keyMatches = [word for word in KeyWords if word + ' ' in testMessage or ' ' + word in testMessage]
 	if message.author.bot:
@@ -87,6 +118,7 @@ async def on_message(message):
 		await client.send_message(message.author, msg)
 		msg = 'I\'ve deleted a message from @{} in #{} containing the words {}: "{}".'.format(message.author.name, message.channel.name, badMatches, message.content)
 		await client.send_message(discord.Object(id='370664588167086090'), msg)
+		await add_score_with_ban(message.author, len(badMatches))
 		print(msg)
 	elif any(keyMatches):
 		msg = 'User @{} mentioned keyword {} in #{}: "{}"'.format(message.author.name, keyMatches, message.channel.name, message.content)
