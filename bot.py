@@ -19,7 +19,7 @@ async def on_ready():
 		print(' ')
 		time.sleep(2)
 		print('DONE!')
-		
+
 
 goal_time = datetime.time(10, 0, 0)
 now = datetime.datetime.now()
@@ -37,6 +37,7 @@ async def good_morning():
 	if (now.year, now.month, now.day, now.hour, now.minute, now.second) >= (goal.year, goal.month, goal.day, goal.hour, goal.minute, goal.second):
 		
 		today   = datetime.date.today()
+		# The date of the next convention (YYYY, MM, DD)
 		futdate = datetime.date(2018, 7, 26)
 		
 		now     = datetime.datetime.now()
@@ -47,9 +48,9 @@ async def good_morning():
 		print ("%d days until BronyCon 2018" % (days))
 		
 		# Greeting
-		msga = random.choice(['Good Morning Baltimare!', 'Another lovely day in Baltimare!', 'It\'s PonyTime!'])
+		msga = random.choice(['Good morning Baltimare!', 'Another lovely day in Baltimare!', 'It\'s PonyTime!', 'Today is going to be a good day!'])
 		# Conversation starter
-		msgb = random.choice(['How\'s everypony doing?', 'Today\'s topic: pancakes.', 'What\'s new with everypony?'])
+		msgb = random.choice(['How\'s everypony doing?', 'Today\'s topic: pancakes.', 'What\'s new with everypony?', 'Who\'s excited for BronyCon 2018?', 'Anypony have any interesting plans for today?'])
 		# Time until BronyCon
 		###################### Need to replace 'X' with the 'days' variable.
 		msgc = random.choice(['Only X days until BronyCon!', 'X days left? BronyCon is right around the corner!', 'Oh Celestia, only X days until BronyCon starts, how exciting!'])
