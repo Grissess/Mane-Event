@@ -8,14 +8,16 @@ client = discord.Client()
 
 @client.event
 async def on_ready():
+	print(' ')
 	print('Logged in as')
 	print(client.user.name)
 	print(client.user.id)
 	print('--Server List--')
 	for server in client.servers:
 		print(server.name)
+		print(' ')
 
-goal_time = datetime.time(10, 0, 0)
+goal_time = datetime.time(6, 24, 0)
 now = datetime.datetime.now()
 goal = now.replace(hour=goal_time.hour, minute=goal_time.minute, second=goal_time.second, microsecond=0)
 ONE_DAY = datetime.timedelta(days=1)
@@ -29,8 +31,22 @@ async def good_morning():
 	#print('check', (now.year, now.month, now.day, now.hour, now.minute, now.second), (goal.year, goal.month, goal.day, goal.hour, goal.minute, goal.second))
 	# Check for inequality down to the second
 	if (now.year, now.month, now.day, now.hour, now.minute, now.second) >= (goal.year, goal.month, goal.day, goal.hour, goal.minute, goal.second):
-		msg = random.choice(['Good Morning Baltimare!', 'It\'s a lovely day in Baltimare!', 'How\'s everypony doing today?', 'It\'s PonyTime™!'])
-		await client.send_message(discord.Object(id='370668218546913280'), msg)
+		
+		today   = datetime.date.today()
+		futdate = datetime.date(2018, 7, 26)
+		
+		now     = datetime.datetime.now()
+		mnight  = now.replace(hour=0, minute=0, second=0, microsecond=0)
+		seconds = (mnight - now).seconds
+		days    = (futdate - today).days
+		hms     = str(datetime.timedelta(seconds=seconds))
+		print ("%d days until BronyCon 2018" % (days))
+		
+		msga = random.choice(['Good Morning Baltimare!', 'It\'s a lovely day in Baltimare!', 'It\'s PonyTime!'])
+		msgb = random.choice(['How\'s everypony doing?', 'Today\'s topic: pancakes.', 'What\'s new with everypony?'])
+		msgc = random.choice(['Only X days until BronyCon!', 'X days left? BronyCon is right around the corner!', 'Oh Celestia, only X days until the Con starts, how exciting!'])
+		#await client.send_message(discord.Object(id='370668218546913280'), msga + msgb)
+		print(msga + ' ' + msgb + ' ' + msgc)
 		print('Good Morning message sent!')
 		# Prepare the next goal time
 		goal = (now + ONE_DAY).replace(hour=goal_time.hour, minute=goal_time.minute, second=goal_time.second, microsecond=0)
@@ -46,10 +62,10 @@ BannedWords = ['ahole', 'anus', 'ash0le', 'ash0les', 'asholes', 'ass ', ' ass', 
 # string 'KeyWords' is keywords to notify the mod team about
 KeyWords = ['keyword', 'suicide', 'kill myself', 'cut myself', 'hang myself', 'noose']
 
-@client.event
+"""@client.event
 async def on_message(message):
 	testMessage = message.content.lower()
-	badMatches = [word for word in BannedWords if word + ' ' in testMessage or ' ' + word in testMessage]
+	#badMatches = [word for word in BannedWords if word + ' ' in testMessage or ' ' + word in testMessage]
 	keyMatches = [word for word in KeyWords if word + ' ' in testMessage or ' ' + word in testMessage]
 	if message.author.bot:
 		print('I ignored a bot message!')
@@ -66,7 +82,7 @@ async def on_message(message):
 		msg = 'User @{} mentioned keyword {} in #{}'.format(message.author.name, keyMatches, message.channel.name)
 		await client.send_message(discord.Object(id='370664588167086090'), msg)
 		print(msg)
-	return
+	return"""
 
 #	elif message.content.startswith('!help') and "panel" or "activity" or "event" in message.content:
 #			await client.send_message(message.channel, 'For panel and activity registration, go to: http://bronycon.org/events/run-an-event/')
