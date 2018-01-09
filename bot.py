@@ -42,11 +42,13 @@ async def good_morning():
 		hms     = str(datetime.timedelta(seconds=seconds))
 		print ("%d days until BronyCon 2018" % (days))
 		
-		msga = random.choice(['Good Morning Baltimare!', 'It\'s a lovely day in Baltimare!', 'It\'s PonyTime!'])
+		msga = random.choice(['Good Morning Baltimare!', 'Another lovely day in Baltimare!', 'It\'s PonyTime!'])
 		msgb = random.choice(['How\'s everypony doing?', 'Today\'s topic: pancakes.', 'What\'s new with everypony?'])
-		msgc = random.choice(['Only X days until BronyCon!', 'X days left? BronyCon is right around the corner!', 'Oh Celestia, only X days until the Con starts, how exciting!'])
-		#await client.send_message(discord.Object(id='370668218546913280'), msga + msgb)
-		print(msga + ' ' + msgb + ' ' + msgc)
+		###################### Need to replace 'X' with the 'days' variable.
+		msgc = random.choice(['Only X days until BronyCon!', 'X days left? BronyCon is right around the corner!', 'Oh Celestia, only X days until BronyCon starts, how exciting!'])
+		msgd = random.choice(['Have you registered for your badge yet? https://www.bronycon.org/register', 'Have an event or panel you want to run this year? Don\'t hesitate! Put in your application now! https://www.bronycon.org/events/run-an-event', 'Do you have what it takes to help make BronyCon an amazing event for all ages? Apply for staff at https://www.bronycon.org/about/volunteer/staff'])
+		#await client.send_message(discord.Object(id='370668218546913280'), msga + ' ' + msgb + ' ' + msgc)
+		print(msga + ' ' + msgb + ' ' + msgc + ' ' + msgd)
 		print('Good Morning message sent!')
 		# Prepare the next goal time
 		goal = (now + ONE_DAY).replace(hour=goal_time.hour, minute=goal_time.minute, second=goal_time.second, microsecond=0)
