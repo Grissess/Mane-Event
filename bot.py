@@ -50,7 +50,7 @@ async def good_morning():
 		# Greeting
 		msga = random.choice(['Good morning Baltimare!', 'Another lovely day in Baltimare!', 'It\'s PonyTime!', 'Today is going to be a good day!'])
 		# Conversation starter
-		msgb = random.choice(['How\'s everypony doing?', 'Today\'s topic: pancakes.', 'What\'s new with everypony?', 'Who\'s excited for BronyCon 2018?', 'Anypony have any interesting plans for today?'])
+		msgb = random.choice(['How\'s everypony doing?', 'Today\'s topic: "Pancakes, syrup or butter?"', 'What\'s new with everypony?', 'Who\'s excited for BronyCon 2018?', 'Anypony have any interesting plans for today?'])
 		# Time until BronyCon
 		###################### Need to replace 'X' with the 'days' variable.
 		msgc = random.choice(['Only X days until BronyCon!', 'X days left? BronyCon is right around the corner!', 'Oh Celestia, only X days until BronyCon starts, how exciting!'])
@@ -73,7 +73,7 @@ BannedWords = ['ahole', 'anus', 'ash0le', 'ash0les', 'asholes', 'ass ', ' ass', 
 # string 'KeyWords' is keywords to notify the mod team about
 KeyWords = ['keyword', 'suicide', 'kill myself', 'cut myself', 'hang myself', 'noose']
 
-"""@client.event
+@client.event
 async def on_message(message):
 	testMessage = message.content.lower()
 	badMatches = [word for word in BannedWords if word + ' ' in testMessage or ' ' + word in testMessage]
@@ -84,16 +84,16 @@ async def on_message(message):
 		await client.delete_message(message)
 		msg = '{0.author.mention}, I\'ve deleted your message and sent you a PM explaining why.'.format(message)
 		await client.send_message(message.channel, msg)
-		msg = 'The content {} is on the word blacklist for the BronyCon Discord Server. Please refrain from using it in the future.'.format(badMatches)
+		msg = 'Your message "{}" contains the blacklisted word(s) "{}". Please refrain from using them in the future!'.format(message.content, badMatches)
 		await client.send_message(message.author, msg)
-		msg = 'I\'ve deleted a message from @{} in #{} containing the words {}.'.format(message.author.name, message.channel.name, badMatches)
+		msg = 'I\'ve deleted a message from @{} in #{} containing the words {}: "{}".'.format(message.author.name, message.channel.name, badMatches, message.content)
 		await client.send_message(discord.Object(id='370664588167086090'), msg)
 		print(msg)
 	elif any(keyMatches):
-		msg = 'User @{} mentioned keyword {} in #{}'.format(message.author.name, keyMatches, message.channel.name)
+		msg = 'User @{} mentioned keyword {} in #{}: "{}"'.format(message.author.name, keyMatches, message.channel.name, message.content)
 		await client.send_message(discord.Object(id='370664588167086090'), msg)
 		print(msg)
-	return"""
+	return
 
 #	elif message.content.startswith('!help') and "panel" or "activity" or "event" in message.content:
 #			await client.send_message(message.channel, 'For panel and activity registration, go to: http://bronycon.org/events/run-an-event/')
