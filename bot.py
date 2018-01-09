@@ -52,7 +52,6 @@ async def good_morning():
 		# Conversation starter
 		msgb = random.choice(['How\'s everypony doing?', 'Today\'s topic: "Pancakes, syrup or butter?"', 'What\'s new with everypony?', 'Who\'s excited for BronyCon 2018?', 'Anypony have any interesting plans for today?'])
 		# Time until BronyCon
-		###################### Need to replace 'X' with the 'days' variable.
 		msgc = random.choice(['Only {} days until BronyCon!', '{} days left? BronyCon is right around the corner!', 'Oh Celestia, only {} days until BronyCon starts, how exciting!'])
 		msgc = msgc.format(days)
 		# Additional info
