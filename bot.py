@@ -1,4 +1,4 @@
-import discord, asyncio, re, os, datetime, traceback, random, threading, asyncio
+import discord, asyncio, re, os, datetime, traceback, random, threading, asyncio, time
 
 client = discord.Client()
 
@@ -9,15 +9,19 @@ client = discord.Client()
 @client.event
 async def on_ready():
 	print(' ')
-	print('Logged in as')
+	print('Logged in as:')
 	print(client.user.name)
 	print(client.user.id)
+	print(' ')
 	print('--Server List--')
 	for server in client.servers:
 		print(server.name)
 		print(' ')
+		time.sleep(2)
+		print('DONE!')
+		
 
-goal_time = datetime.time(6, 24, 0)
+goal_time = datetime.time(10, 0, 0)
 now = datetime.datetime.now()
 goal = now.replace(hour=goal_time.hour, minute=goal_time.minute, second=goal_time.second, microsecond=0)
 ONE_DAY = datetime.timedelta(days=1)
@@ -47,7 +51,7 @@ async def good_morning():
 		###################### Need to replace 'X' with the 'days' variable.
 		msgc = random.choice(['Only X days until BronyCon!', 'X days left? BronyCon is right around the corner!', 'Oh Celestia, only X days until BronyCon starts, how exciting!'])
 		msgd = random.choice(['Have you registered for your badge yet? https://www.bronycon.org/register', 'Have an event or panel you want to run this year? Don\'t hesitate! Put in your application now! https://www.bronycon.org/events/run-an-event', 'Do you have what it takes to help make BronyCon an amazing event for all ages? Apply for staff at https://www.bronycon.org/about/volunteer/staff'])
-		#await client.send_message(discord.Object(id='370668218546913280'), msga + ' ' + msgb + ' ' + msgc)
+		#await client.send_message(discord.Object(id='370668218546913280'), msga + ' ' + msgb + ' ' + msgc + ' ' + msgd)
 		print(msga + ' ' + msgb + ' ' + msgc + ' ' + msgd)
 		print('Good Morning message sent!')
 		# Prepare the next goal time
@@ -67,7 +71,7 @@ KeyWords = ['keyword', 'suicide', 'kill myself', 'cut myself', 'hang myself', 'n
 """@client.event
 async def on_message(message):
 	testMessage = message.content.lower()
-	#badMatches = [word for word in BannedWords if word + ' ' in testMessage or ' ' + word in testMessage]
+	badMatches = [word for word in BannedWords if word + ' ' in testMessage or ' ' + word in testMessage]
 	keyMatches = [word for word in KeyWords if word + ' ' in testMessage or ' ' + word in testMessage]
 	if message.author.bot:
 		print('I ignored a bot message!')
