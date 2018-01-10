@@ -74,7 +74,7 @@ async def good_morning():
 	global goal
 
 	now = datetime.datetime.now()
-	#print('check', (now.year, now.month, now.day, now.hour, now.minute, now.second), (goal.year, goal.month, goal.day, goal.hour, goal.minute, goal.second))
+	#console_print('check', (now.year, now.month, now.day, now.hour, now.minute, now.second), (goal.year, goal.month, goal.day, goal.hour, goal.minute, goal.second))
 	# Check for inequality down to the second
 	if (now.year, now.month, now.day, now.hour, now.minute, now.second) >= (goal.year, goal.month, goal.day, goal.hour, goal.minute, goal.second):
 
@@ -87,7 +87,7 @@ async def good_morning():
 		seconds = (mnight - now).seconds
 		days    = (futdate - today).days
 		hms     = str(datetime.timedelta(seconds=seconds))
-		print ("%d days until BronyCon 2018" % (days))
+		console_print ("%d days until BronyCon 2018" % (days))
 
 		# Greeting
 		msga = random.choice(['Good morning Baltimare!', 'Another lovely day in Baltimare!', 'It\'s PonyTime!', 'Today is going to be a good day!'])
@@ -99,8 +99,8 @@ async def good_morning():
 		# Additional info
 		msgd = random.choice(['Have you registered for your badge yet? https://www.bronycon.org/register', 'Have an event or panel you want to run this year? Don\'t hesitate! Put in your application now! https://www.bronycon.org/events/run-an-event', 'Do you have what it takes to help make BronyCon an amazing event for all ages? Apply for staff at https://www.bronycon.org/about/volunteer/staff'])
 		#await client.send_message(discord.Object(id='370668218546913280'), msga + ' ' + msgb + ' ' + msgc + ' ' + msgd)
-		print(msga + ' ' + msgb + ' ' + msgc + ' ' + msgd)
-		print('Good Morning message sent!')
+		console_print(msga + ' ' + msgb + ' ' + msgc + ' ' + msgd)
+		console_print('Good Morning message sent!')
 		# Prepare the next goal time
 		goal = (now + ONE_DAY).replace(hour=goal_time.hour, minute=goal_time.minute, second=goal_time.second, microsecond=0)
 
@@ -129,20 +129,20 @@ def getBadMatches(message):
     testMessage = message.lower()
 
     while True:
-        #print 'Testing {0}'.format(testMessage)
+        #console_print 'Testing {0}'.format(testMessage)
         badMatches = [word for word in BannedWords if word in testMessage]
         if not badMatches:
             return badMatches
         badMatch = badMatches[0]
-        #print 'Banned word {0}'.format(badMatch)
+        #console_print 'Banned word {0}'.format(badMatch)
         possibleGoodWords = [word for word in GoodWords if badMatch in word]
         matchingGoodWords = [word for word in possibleGoodWords if word in testMessage]
         matchingGoodWords.sort(key=len, reverse=True)
 
-        #print 'Matching good words {0}'.format(matchingGoodWords)
+        #console_print 'Matching good words {0}'.format(matchingGoodWords)
 
         if not matchingGoodWords:
-            #print 'FAILED'
+            #console_print 'FAILED'
             return badMatches
         else:
             testMessage = testMessage.replace(matchingGoodWords[0], '', 1)
@@ -154,7 +154,7 @@ async def on_message_edit(beforeMsg, afterMsg):
 @client.event
 async def on_message(message):
 	"""if message.channel.id != '370700700809691136':
-		print('Ignoring a message not from #bot-testing for now...')
+		console_print('Ignoring a message not from #bot-testing for now...')
 		return"""
 
 	testMsg = message.content.lower().translate(puncTranslator)
@@ -167,7 +167,7 @@ async def on_message(message):
 
 	keyMatches = [word for word in KeyWords if word in testMsg]
 	if message.author.bot:
-		print('I ignored a bot message!')
+		console_print('I ignored a bot message!')
 	elif any(badMatches):
 		#await client.delete_message(message)
 		msg = '{0.author.mention}, I\'ve deleted your message and sent you a PM explaining why.'.format(message)
@@ -178,12 +178,12 @@ async def on_message(message):
 			message.author.name, message.channel.name, badMatches, message.content)
 		await send_mod_message(msg)
 		await add_score_with_ban(message.author, badScore)
-		print(msg)
+		console_print(msg)
 	elif any(keyMatches):
 		msg = 'User @{} mentioned keyword {} in #{}: "{}"'.format(
 			message.author.name, keyMatches, message.channel.name, message.content)
 		await client.send_message(discord.Object(id='370664588167086090'), msg)
-		print(msg)
+		console_print(msg)
 	return
 
 #	elif message.content.startswith('!help') and "panel" or "activity" or "event" in message.content:
