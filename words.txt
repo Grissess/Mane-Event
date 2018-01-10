@@ -2481,7 +2481,7 @@ claromontanus
 clarseach
 clarsech
 clarseth
-class.
+class
 classable
 classbook
 class-cleavage
@@ -5382,7 +5382,7 @@ funs
 fun-seeking
 funster
 funt
-fur.
+fur
 furacana
 furacious
 furaciousness
@@ -5755,7 +5755,6 @@ fusulas
 fusuma
 fusure
 fut
-fut.
 futchel
 futchell
 fute
