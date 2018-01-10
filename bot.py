@@ -28,7 +28,12 @@ async def add_score_with_ban(user, delta_score):
 	score = get_score(user.id)
 	if score > SCORE_LIM:  # strictly > per design spec
 		set_score(user.id, 0)  # XXX maybe delete to keep db small
-		await client.send_message(discord.Object(id='370664588167086090'), f'{user.name}\U0001F528 (score was {score})')  # XXX ban
+		await send_mod_message(f'{user.name}\U0001F528 (score was {score})') # XXX ban
+
+async def send_mod_message(msg):
+	# uncomment this line to re-enable messages.
+	#await client.send_message(discord.Object(id='370664588167086090'), msg)
+	pass
 
 # This converts 'badwords.txt' to a string and prints it in the console
 #linestring = open('badwords.txt', 'r').read()
@@ -130,13 +135,13 @@ async def on_message(message):
 		await client.send_message(message.author, msg)
 		msg = 'I\'ve deleted a message from @{} in #{} containing the words {}: "{}".'.format(
 			message.author.name, message.channel.name, badMatches, message.content)
-		await client.send_message(discord.Object(id='370664588167086090'), msg)
+		await send_mod_message(msg)
 		await add_score_with_ban(message.author, badScore)
 		print(msg)
 	elif any(keyMatches):
 		msg = 'User @{} mentioned keyword {} in #{}: "{}"'.format(
 			message.author.name, keyMatches, message.channel.name, message.content)
-		await client.send_message(discord.Object(id='370664588167086090'), msg)
+		await send_mod_message(msg)
 		print(msg)
 	return
 
