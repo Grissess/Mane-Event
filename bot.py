@@ -166,7 +166,7 @@ async def on_message(message):
 	elif any(keyMatches):
 		msg = 'User @{} mentioned keyword {} in #{}: "{}"'.format(
 			message.author.name, keyMatches, message.channel.name, message.content)
-		await send_mod_message(msg)
+		await client.send_message(discord.Object(id='370664588167086090'), msg)
 		print(msg)
 	return
 
