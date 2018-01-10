@@ -31,9 +31,7 @@ async def add_score_with_ban(user, delta_score):
 		await send_mod_message(f'{user.name}\U0001F528 (score was {score})') # XXX ban
 
 async def send_mod_message(msg):
-	# uncomment this line to re-enable messages.
-	#await client.send_message(discord.Object(id='370664588167086090'), msg)
-	pass
+	await client.send_message(discord.Object(id='400472944049913867'), msg)
 
 # This converts 'badwords.txt' to a string and prints it in the console
 #linestring = open('badwords.txt', 'r').read()
@@ -112,6 +110,31 @@ KeyWords = ['keyword', 'suicide', 'kill myself', 'cut myself', 'hang myself', 'n
 
 puncTranslator = str.maketrans('', '', string.punctuation)
 
+with open('words.txt') as f:
+    GoodWords = set(f.read().splitlines())
+
+def getBadMatches(message):
+    testMessage = message.lower()
+
+    while True:
+        #print 'Testing {0}'.format(testMessage)
+        badMatches = [word for word in BannedWords if word in testMessage]
+        if not badMatches:
+            return badMatches
+        badMatch = badMatches[0]
+        #print 'Banned word {0}'.format(badMatch)
+        possibleGoodWords = [word for word in GoodWords if badMatch in word]
+        matchingGoodWords = [word for word in possibleGoodWords if word in testMessage]
+        matchingGoodWords.sort(key=len, reverse=True)
+
+        #print 'Matching good words {0}'.format(matchingGoodWords)
+
+        if not matchingGoodWords:
+            #print 'FAILED'
+            return badMatches
+        else:
+            testMessage = testMessage.replace(matchingGoodWords[0], '', 1)
+
 @client.event
 async def on_message(message):
 	if message.channel.id != '370700700809691136':
@@ -121,7 +144,9 @@ async def on_message(message):
 	testMsg = message.content.lower().translate(puncTranslator)
 	testWords = testMsg.lower().split()
 
-	badMatches = [word for word in testWords if word in BannedWords]
+	# Uncomment this line / comment "getBadMatches" to switch away from word whitelist
+	#badMatches = [word for word in testWords if word in BannedWords]
+	badMatches = getBadMatches(testMsg)
 	badScore = sum([BannedScores[word] for word in badMatches])
 
 	keyMatches = [word for word in testWords if word in KeyWords]
