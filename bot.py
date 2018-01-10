@@ -136,6 +136,10 @@ def getBadMatches(message):
             testMessage = testMessage.replace(matchingGoodWords[0], '', 1)
 
 @client.event
+async def on_message_edit(beforeMsg, afterMsg):
+	await on_message(afterMsg)
+
+@client.event
 async def on_message(message):
 	if message.channel.id != '370700700809691136':
 		print('Ignoring a message not from #bot-testing for now...')
