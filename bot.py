@@ -149,7 +149,7 @@ async def on_message(message):
 	badMatches = getBadMatches(testMsg)
 	badScore = sum([BannedScores[word] for word in badMatches])
 
-	keyMatches = [word for word in testWords if word in KeyWords]
+	keyMatches = [word for word in KeyWords if word in testMsg]
 	if message.author.bot:
 		print('I ignored a bot message!')
 	elif any(badMatches):
