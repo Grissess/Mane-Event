@@ -1,5 +1,16 @@
 import discord, asyncio, re, os, datetime, traceback, random, threading, asyncio, time, sqlite3
 import string
+import ctypes
+import json
+
+ctypes.windll.kernel32.SetConsoleTitleW("Mane Event 0.0.1")
+
+config = json.load(open('config.json'))
+token = config['token']
+
+def console_print(message):
+	timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
+	print(f'{timestamp} {message}')
 
 db = sqlite3.connect('bot.sqlite3')
 cur = db.cursor()
@@ -39,17 +50,18 @@ async def send_mod_message(msg):
 
 @client.event
 async def on_ready():
-	print(' ')
-	print('Logged in as:')
-	print(client.user.name)
-	print(client.user.id)
-	print(' ')
-	print('--Server List--')
+	console_print(' ')
+	console_print('Logged in as:')
+	console_print(client.user.name)
+	console_print(client.user.id)
+	console_print(' ')
+	console_print('--Server List--')
 	for server in client.servers:
-		print(server.name)
-		print(' ')
+		console_print(server.name)
+		console_print(' ')
 		time.sleep(2)
-		print('DONE!')
+		console_print('DONE!')
+		console_print(' ')
 
 ONE_DAY = datetime.timedelta(days=1)
 goal_time = datetime.time(10, 0, 0)
@@ -141,9 +153,9 @@ async def on_message_edit(beforeMsg, afterMsg):
 
 @client.event
 async def on_message(message):
-	if message.channel.id != '370700700809691136':
+	"""if message.channel.id != '370700700809691136':
 		print('Ignoring a message not from #bot-testing for now...')
-		return
+		return"""
 
 	testMsg = message.content.lower().translate(puncTranslator)
 	testWords = testMsg.lower().split()
@@ -157,11 +169,11 @@ async def on_message(message):
 	if message.author.bot:
 		print('I ignored a bot message!')
 	elif any(badMatches):
-		await client.delete_message(message)
+		#await client.delete_message(message)
 		msg = '{0.author.mention}, I\'ve deleted your message and sent you a PM explaining why.'.format(message)
-		await client.send_message(message.channel, msg)
+		#await client.send_message(message.channel, msg)
 		msg = 'Your message "{}" contains the blacklisted word(s) "{}". Please refrain from using them in the future!'.format(message.content, badMatches)
-		await client.send_message(message.author, msg)
+		#await client.send_message(message.author, msg)
 		msg = 'I\'ve deleted a message from @{} in #{} containing the words {}: "{}".'.format(
 			message.author.name, message.channel.name, badMatches, message.content)
 		await send_mod_message(msg)
@@ -177,4 +189,4 @@ async def on_message(message):
 #	elif message.content.startswith('!help') and "panel" or "activity" or "event" in message.content:
 #			await client.send_message(message.channel, 'For panel and activity registration, go to: http://bronycon.org/events/run-an-event/')
 
-client.run('Mzk5NDczNDc1NTM1NzY1NTA1.DTNq1A.nabOxq8x-OLi_pOmG3VOfMQ53JE')
+client.run(token)
