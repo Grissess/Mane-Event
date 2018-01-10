@@ -44,10 +44,6 @@ async def add_score_with_ban(user, delta_score):
 async def send_mod_message(msg):
 	await client.send_message(discord.Object(id='400472944049913867'), msg)
 
-# This converts 'badwords.txt' to a string and prints it in the console
-#linestring = open('badwords.txt', 'r').read()
-#print (linestring.split('\n'))
-
 @client.event
 async def on_ready():
 	console_print(' ')
@@ -99,7 +95,7 @@ async def good_morning():
 		# Additional info
 		msgd = random.choice(['Have you registered for your badge yet? https://www.bronycon.org/register', 'Have an event or panel you want to run this year? Don\'t hesitate! Put in your application now! https://www.bronycon.org/events/run-an-event', 'Do you have what it takes to help make BronyCon an amazing event for all ages? Apply for staff at https://www.bronycon.org/about/volunteer/staff'])
 		#await client.send_message(discord.Object(id='370668218546913280'), msga + ' ' + msgb + ' ' + msgc + ' ' + msgd)
-		console_print(msga + ' ' + msgb + ' ' + msgc + ' ' + msgd)
+		console_print(msga + ' ' + msgb + ' ' + msgc + '\n' + msgd)
 		console_print('Good Morning message sent!')
 		# Prepare the next goal time
 		goal = (now + ONE_DAY).replace(hour=goal_time.hour, minute=goal_time.minute, second=goal_time.second, microsecond=0)
@@ -112,7 +108,7 @@ loop.call_soon(asyncio.ensure_future, good_morning())
 
 # string 'BannedWords' is words to delete
 BannedWords = []
-with open('badwords.txt') as f:
+with open('blist.txt') as f:
     BannedWords = f.read().splitlines()
 BannedWords = set([x.lower() for x in BannedWords])
 BannedScores = dict((word, 1) for word in BannedWords)
@@ -122,7 +118,7 @@ KeyWords = ['keyword', 'suicide', 'kill myself', 'cut myself', 'hang myself', 'n
 
 puncTranslator = str.maketrans('', '', string.punctuation)
 
-with open('words.txt') as f:
+with open('wlist.txt') as f:
     GoodWords = set(f.read().splitlines())
 
 def getBadMatches(message):
@@ -172,7 +168,7 @@ async def on_message(message):
 		#await client.delete_message(message)
 		msg = '{0.author.mention}, I\'ve deleted your message and sent you a PM explaining why.'.format(message)
 		#await client.send_message(message.channel, msg)
-		msg = 'Your message "{}" contains the blacklisted word(s) "{}". Please refrain from using them in the future!'.format(message.content, badMatches)
+		msg = 'Your message "{}" contains the blacklisted word(s) "{}". Please refrain from using them in the future!\n\nIf you believe this was an error, please contact @Alabaster#6514.'.format(message.content, badMatches)
 		#await client.send_message(message.author, msg)
 		msg = 'I\'ve deleted a message from @{} in #{} containing the words {}: "{}".'.format(
 			message.author.name, message.channel.name, badMatches, message.content)
