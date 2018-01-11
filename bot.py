@@ -95,8 +95,8 @@ async def good_morning():
 		msgc = msgc.format(days)
 		# Additional info
 		msgd = random.choice(['Have you registered for your badge yet? https://www.bronycon.org/register', 'Have a question about BronyCon? Email info@bronycon.org!', 'Have an event or panel you want to run this year? Don\'t hesitate! Put in your application now! https://www.bronycon.org/events/run-an-event', 'Do you have what it takes to help make BronyCon an amazing event for all ages? Apply for staff at https://www.bronycon.org/about/volunteer/staff'])
-		await client.send_message(discord.Object(id='370668218546913280'), msga + ' ' + msgb + ' ' + msgc + ' ' + msgd)
-		console_print(msga + ' ' + msgb + ' ' + msgc + '\n' + msgd)
+		await client.send_message(discord.Object(id='370668218546913280'), msga + ' ' + msgb + ' ' + msgc + '\n' + '\n' + msgd)
+		console_print(msga + ' ' + msgb + ' ' + msgc + '\n' + '\n' + msgd)
 		console_print('Good Morning message sent!')
 		
 		# Prepare the next goal time
