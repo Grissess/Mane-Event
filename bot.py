@@ -2,6 +2,7 @@ import discord, asyncio, re, os, datetime, traceback, random, threading, asyncio
 import string
 import ctypes
 import json
+from collections import Counter
 
 ctypes.windll.kernel32.SetConsoleTitleW("Mane Event 0.0.1")
 
@@ -42,7 +43,7 @@ async def add_score_with_ban(user, delta_score):
 		await send_mod_message(f'{user.name}\U0001F528 (score was {score})') # XXX ban
 
 async def send_mod_message(msg):
-	await client.send_message(discord.Object(id='400472944049913867'), msg)
+	await client.send_message(discord.Object(id='400616936062320641'), msg)
 
 @client.event
 async def on_ready():
@@ -94,9 +95,10 @@ async def good_morning():
 		msgc = msgc.format(days)
 		# Additional info
 		msgd = random.choice(['Have you registered for your badge yet? https://www.bronycon.org/register', 'Have a question about BronyCon? Email info@bronycon.org!', 'Have an event or panel you want to run this year? Don\'t hesitate! Put in your application now! https://www.bronycon.org/events/run-an-event', 'Do you have what it takes to help make BronyCon an amazing event for all ages? Apply for staff at https://www.bronycon.org/about/volunteer/staff'])
-		#await client.send_message(discord.Object(id='370668218546913280'), msga + ' ' + msgb + ' ' + msgc + ' ' + msgd)
+		await client.send_message(discord.Object(id='370668218546913280'), msga + ' ' + msgb + ' ' + msgc + ' ' + msgd)
 		console_print(msga + ' ' + msgb + ' ' + msgc + '\n' + msgd)
 		console_print('Good Morning message sent!')
+		
 		# Prepare the next goal time
 		goal = (now + ONE_DAY).replace(hour=goal_time.hour, minute=goal_time.minute, second=goal_time.second, microsecond=0)
 
