@@ -151,7 +151,12 @@ async def on_message_edit(beforeMsg, afterMsg):
 
 @client.event
 async def on_message(message):
-	"""if message.channel.id != '370700700809691136':
+#                  #bot-logs               #bot-testing            #moderation             #event-planning         #announcements
+	IgnoreRooms = ('400616936062320641', '370700700809691136', '370664588167086090', '375415927510007808', '370666826033528842')
+	"""if message.channel.id(IgnoreRooms):
+		console_print('Ignoring message from designated ignore-rooms')
+		return
+	if message.channel.id != '370700700809691136':
 		console_print('Ignoring a message not from #bot-testing for now...')
 		return"""
 
