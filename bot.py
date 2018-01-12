@@ -77,12 +77,12 @@ async def good_morning():
 
 		today   = datetime.date.today()
 		# The date of the next convention (YYYY, MM, DD)
-		futdate = datetime.date(2018, 7, 26)
+		nextevent = datetime.date(2018, 7, 26)
 
 		now     = datetime.datetime.now()
 		mnight  = now.replace(hour=0, minute=0, second=0, microsecond=0)
 		seconds = (mnight - now).seconds
-		days    = (futdate - today).days
+		days    = (nextevent - today).days
 		hms     = str(datetime.timedelta(seconds=seconds))
 		console_print ("%d days until BronyCon 2018" % (days))
 
