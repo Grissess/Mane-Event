@@ -122,5 +122,5 @@ class Module(bot.Module):
         delta = next_bday - now
         delta -= datetime.timedelta(microseconds=delta.microseconds)
         await self.client.send_message(message.channel,
-            f'Thanks, {message.author.mention}! We\'ll celebrate in {delta}.'
+            f'Thanks, {message.author.mention}! We\'ll start celebrating in {delta}.'
         )
