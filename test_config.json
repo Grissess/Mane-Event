@@ -1,23 +1,23 @@
 {
-	"token": "Mzk5NDczNDc1NTM1NzY1NTA1.DTc8iQ.zJ4cje-pqj8b-d1mvqi4e-C1bC0",
+	"token": "NDAwNzYzODU4MDYwNDQzNjQ4.DTgX8g.CEdnTavVpMyL_Sl2Cc4lw-LxE-8",
 	"database_file": "bot.sqlite3",
 	"channels": {
-		"GENERAL": "370668218546913280"
 		"MODERATION": "370664588167086090",
 		"BOT_LOG": "400616936062320641",
 		"BOT_TESTING": "370700700809691136"
 	},
+	"only_recv_in": ["BOT_TESTING"],
 	"occasion_tick": 0.5,
 	"modules": {
 		"log": {},
 		"goodmorning": {
 			"at": [10, 0, 0],
 			"convention": [2018, 7, 26],
-			"into": "GENERAL"
+			"into": "BOT_TESTING"
 		},
 		"birthdays": {
 			"at": [10, 0, 5],
-			"into": "GENERAL"
+			"into": "BOT_TESTING"
 		},
 		"censor": {
 			"profanity_file": "blist.txt",
