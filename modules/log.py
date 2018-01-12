@@ -4,12 +4,14 @@ class Module(bot.Module):
     def __init__(self, config):
         super().__init__(config)
 
+        self.file = None
         if 'file' in self.config:
             self.file = open(self.config['file'], 'a')
 
     def print(self, *args):
         print(*args)
-        self.file.write(' '.join(args))
+        if self.file is not None:
+            self.file.write(' '.join(args))
 
     async def on_ready(self):
         self.print('log: ready')
