@@ -85,7 +85,7 @@ class Module(bot.Module):
             msg = random.choice(self.NIL_MESSAGES)
 
         await self.client.send_message(self.get_channel(self.config['into']),
-            f"{msg}\nIf I don't know your birthday yet, you can tell me with `!setbirthday month day` or `!setbirthday year month day` if you want ponies to know how old you are!"
+            f"{msg}\nIf I don't know your birthday yet, you can tell me with `!setbirthday month day` or `!setbirthday year month day` if you want ponies to know how old you are!\nFor example, Alabaster is born on December 22nd 1996, so he would use `!setbirthday 1996 12 22`"
         )
 
     async def on_message(self, message):
