@@ -167,11 +167,11 @@ async def on_message(message):
 	if message.author.bot:
 		console_print('I ignored a bot message!')
 	elif any(badMatches):
-		#await client.delete_message(message)
+		await client.delete_message(message)
 		msg = '{0.author.mention}, I\'ve deleted your message and sent you a PM explaining why.'.format(message)
-		#await client.send_message(message.channel, msg)
+		await client.send_message(message.channel, msg)
 		msg = 'Your message "{}" contains the blacklisted word(s) "{}". Please refrain from using them in the future!\n\nIf you believe this was an error, please contact @Alabaster#6514.'.format(message.content, badMatches)
-		#await client.send_message(message.author, msg)
+		await client.send_message(message.author, msg)
 		msg = 'I\'ve deleted a message from @{} in #{} containing the words {}: "{}".'.format(
 			message.author.name, message.channel.name, badMatches, message.content)
 		await send_mod_message(msg)
