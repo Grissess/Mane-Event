@@ -1,4 +1,4 @@
-import datetime, random
+import datetime, random, re
 
 import bot
 
@@ -63,7 +63,7 @@ class Module(bot.Module):
             await self.list_birthdays()
             self.goal = self.at_goal_time(now + self.ONE_DAY)
 
-    async def list_birthdays(self):
+    async def list_birthdays(self, channel=None):
         now = datetime.datetime.now()
         birthdays = self.birthdays.get_birthdays(now.month, now.day)
         birthdays = [(list(self.client.servers)[0].get_member(str(uid)), year) for uid, year in birthdays]
@@ -84,20 +84,48 @@ class Module(bot.Module):
         else:
             msg = random.choice(self.NIL_MESSAGES)
 
-        await self.client.send_message(self.get_channel(self.config['into']),
-            f"{msg}\nIf I don't know your birthday yet, you can tell me with `!setbirthday month day` or `!setbirthday year month day` if you want ponies to know how old you are!\nFor example, Alabaster is born on December 22nd 1996, so he would use `!setbirthday 1996 12 22`"
+
+        if channel is None:
+            channel = self.get_channel(self.config['into'])
+        await self.client.send_message(channel,
+            f"{msg}\nIf I don't know your birthday yet, you can tell me with `!setbirthday month day` or `!setbirthday year month day` if you want ponies to know how old you are!"
         )
+
+    SPLIT_PARTS = re.compile(r'\s*(?:\s|-|/)\s*')
+    MONTHS = {
+        'january': 1,
+        'jan': 1,
+        'february': 2,
+        'feb': 2,
+        'march': 3,
+        'mar': 3,
+        'april': 4,
+        'apr': 4,
+        'may': 5,
+        'june': 6,
+        'jun': 6,
+        'july': 7,
+        'jul': 7,
+        'august': 8,
+        'aug': 8,
+        'september': 9,
+        'sep': 9,
+        'october': 10,
+        'oct': 10,
+        'november': 11,
+        'nov': 11,
+        'december': 12,
+        'dec': 12,
+    }
 
     async def on_message(self, message):
         if message.content == '!birthdays':
-            await self.list_birthdays()
+            await self.list_birthdays(message.channel)
             return
         if not message.content.startswith('!setbirthday '):
             return
-        try:
-            parts = list(map(int, message.content.split()[1:]))
-        except ValueError:
-            return
+        parts = self.SPLIT_PARTS.split(message.content)[1:]
+        print(parts)
         if len(parts) not in (2, 3):
             await self.client.send_message(message.channel,
                 f"{message.author.mention}: Just `month day` or `year month day`, please :)"
@@ -107,6 +135,31 @@ class Module(bot.Module):
             year, month, day = None, *parts
         else:
             year, month, day = parts
+        try:
+            day = int(day)
+        except ValueError:
+            await self.client.send_message(message.channel,
+                f"{message.author.mention}: Please make sure your `day` is a number!"
+            )
+            return
+        try:
+            month = int(month)
+        except ValueError:
+            try:
+                month = self.MONTHS[month.lower()]
+            except KeyError:
+                await self.client.send_message(message.channel,
+                    f"{message.author.mention}: For the `month`, give me a number (like 11) or a name (like `November` or `nov`) :)"
+                )
+                return
+        if year is not None:
+            try:
+                year = int(year)
+            except ValueError:
+                await self.client.send_message(message.channel,
+                    f"{message.author.mention}: Please make sure your `year` is a number!"
+                )
+                return
         now = datetime.datetime.now()
         try:
             datetime.date(now.year if year is None else year, month, day)
