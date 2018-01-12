@@ -110,8 +110,16 @@ async def timer():
 loop.call_soon(asyncio.ensure_future, timer())
 
 ALLOWED_CHANNELS = None
+IGNORED_CHANNELS = None
 def check_message_ctx(message):
-    global ALLOWED_CHANNELS
+    global ALLOWED_CHANNELS, IGNORED_CHANNELS
+
+    if IGNORED_CHANNELS is None:
+        IGNORED_CHANNELS = {config['channels'][name] for name in config.get('ignore', [])}
+
+    if message.channel.id in IGNORED_CHANNELS:
+        print('Ignoring a message in', message.channel.name, 'due to `ignore`')
+        return False
 
     if ALLOWED_CHANNELS is None:
         if 'only_recv_in' in config:
@@ -122,7 +130,7 @@ def check_message_ctx(message):
     if ALLOWED_CHANNELS is True:
         return True
     if message.channel.id not in ALLOWED_CHANNELS:
-        print('Ignoring a message in', message.channel, 'due to `only_recv_in`')
+        print('Ignoring a message in', message.channel.name, 'due to `only_recv_in`')
         return False
     return True
 
