@@ -4,7 +4,7 @@ import discord
 
 import db
 
-__version__ = '0.0.2'
+__version__ = '0.0.3'
 
 if sys.platform.startswith('win'):
     ctypes.windll.kernel32.SetConsoleTitleW(f"Mane Event {__version__}")
