@@ -6,7 +6,6 @@
 		"BOT_LOG": "400616936062320641",
 		"BOT_TESTING": "370700700809691136"
 	},
-	"only_recv_in": ["BOT_TESTING"],
 	"occasion_tick": 0.5,
 	"modules": {
 		"log": {},
