@@ -9,7 +9,7 @@
 	},
 	"occasion_tick": 0.5,
 	"modules": {
-		"log": {},
+		"log": {"file": "log.txt"},
 		"goodmorning": {
 			"at": [10, 0, 0],
 			"convention": [2018, 7, 26],
