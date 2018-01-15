@@ -17,7 +17,7 @@ define(`chars', `ifelse(len(`$1'), `0', `', len(`$1'), `1', `$1', `substr(`$1', 
 RE-generating macros
 define(`seq', ``'(?:join(`', $@))')
 define(`alt', ``'(?:join(`|', $@))')
-define(`rep', ``'(?:(?:$1){$2,$3})')
+define(`rep', ``'(?:(?:$1)ifelse(`$2$3', `', `*', `$2,$3', `1,', `+', `$2,$3', `,1', `?', `{$2,$3}'))')
 define(`opt', `rep(`$1', `', `1')')
 define(`zmore', `rep(`$1', `', `')')
 define(`omore', `rep(`$1', `1', `')') 
@@ -25,9 +25,9 @@ define(`ucs', `\U`'eval(`0x'$1, `16', `8')')
 define(`capt', ``'($1)')
 
 Higher level RE macros
-define(`word_sep', `zmore(`\W')')
+define(`word_sep', `zmore(`[^a-zA-Z0-9]')')
 define(`seq_sep', ``'(?:join(word_sep, $@))')
-define(`rep_sep', ``'(?:(?:$1`'word_sep){$2,$3})')
+define(`rep_sep', ``'(?:(?:$1`'word_sep)ifelse(`$2$3', `', `*', `$2,$3', `1,', `+', `$2,$3', `,1', `?', `{$2,$3}'))')
 define(`zmore_sep', `rep_sep(`$1', `', `')')
 define(`omore_sep', `rep_sep(`$1', `1', `')')
 define(`ws_begin', `alt(`^', `\s+')')
@@ -46,5 +46,5 @@ Numeric substitutions:
 define(`ns_o', `alt(`o', `0')')
 define(`ns_e', `alt(`e', `3')')
 define(`ns_l', `alt(`l', `1')')
-define(`ns_i', `alt(`i', `1')')
+define(`ns_i', `alt(`i', `1', `l')')
 define(`ns_a', `alt(`a', `4')')
