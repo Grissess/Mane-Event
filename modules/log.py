@@ -17,10 +17,10 @@ class Module(bot.Module):
         self.print('log: ready')
 
     async def on_message(self, message):
-        self.print('log: on_message', f'#{message.channel.name} <{message.author.name}>) message.content')
+        self.print('log: on_message', f'#{message.channel.name} <{message.author.name}>) {message.content}')
 
     async def on_any_message(self, message):
-        self.print('log: on_any_message',  f'#{message.channel.name} <{message.author.name}>) message.content')
+        self.print('log: on_any_message',  f'#{message.channel.name} <{message.author.name}>) {message.content}')
 
     async def on_occasion(self):
         if self.config.get('occasions'):

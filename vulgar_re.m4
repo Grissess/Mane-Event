@@ -36,7 +36,7 @@ translit(`(?i)alt(map(`capt',
 	seq_sep(ph_k, omore_sep(`u'), omore_sep(`n'), omore_sep(`t')),  dnl cunt
 	seq(ws_begin, seq_sep(ph_k, ns_o, ph_k, opt(alt(seq_sep(`h', ns_e, opt(ns_a), `d'), seq_sep(`s', omore_sep(`u'), ph_k, opt(seq_sep(omore_sep(ns_e), omore_sep(`r'))))))), ws_end),  dnl cock[head|sucker]
 	ifelse(`Racially-charged words:'),
-	seq_sep(`n', ns_i, rep_sep(alt(`g', ph_b), `2', `'), opt(alt(`a', seq_sep(zmore_sep(alt(`e', `u')), omore_sep(`r'))))),  dnl nigg[er|a], nibba etc.
+	seq_sep(`n', ns_i, rep_sep(alt(`g', ph_b, ph_p), `2', `'), opt(alt(`a', seq_sep(zmore_sep(alt(`e', `u')), omore_sep(`r'))))),  dnl nigg[er|a], nibba etc.
 	seq(ws_begin, seq_sep(`j', ns_a, ph_p, opt(`s')), ws_end),  dnl jap
 	ifelse(`Sexually-charged words:'),
 	seq_sep(ph_b, omore_sep(alt(ns_i, ns_e)), zmore_sep(`y'), zmore_sep(alt(ns_a, ns_o)), ph_ch),  dnl bitch, beyotch, biatch etc.
