@@ -29,7 +29,7 @@ translit(`(?i)alt(map(`capt',
 	seq(ws_begin, seq_sep(omore_sep(ns_a), ph_ss, opt(alt(seq_sep(`h', ns_o, ns_l, opt(ns_e)), seq_sep(`h', omore_sep(ns_a), omore_sep(`t')), seq_sep(`w', omore_sep(ns_i), ph_p, omore_sep(ns_e)), seq_sep(`m', alt(`o', `u'), `n', ph_k, opt(`e'), `y'), seq_sep(ph_f, ns_a, alt(seq_sep(`c', ns_e), seq_sep(ns_i, `c')))))), ws_end),  dnl ass[hole|hat|wipe|monkey|face]
 	seq(ws_begin, seq_sep(omore_sep(ns_a), `r', omore_sep(`s'), ns_e), ws_end),  dnl arse
 	seq(ws_begin, seq_sep(ns_a, `n', omore_sep(`u'), omore_sep(`s')), ws_end),  dnl anus
-	seq(seq_sep(`s', omore_sep(`h'), ns_i, omore_sep(`t'), zmore_sep(`s')), ws_end),  dnl shit[s]
+	seq(ws_begin, seq_sep(`s', omore_sep(`h'), ns_i, omore_sep(`t'), zmore_sep(`s')), ws_end),  dnl shit[s]
 	seq(seq_sep(ph_k, omore_sep(`r'), omore_sep(ns_a), omore_sep(ph_p)), ws_end),  dnl crap (but not craps)
 	seq_sep(omore_sep(alt(ph_p, ph_b)), omore_sep(ns_e), omore_sep(alt(`n', ph_p)), omore_sep(ns_i), omore_sep(alt(`s', `z'))),  dnl penis, bepis
 	seq_sep(`v', ns_a, omore_sep(`g'), omore_sep(ns_i), `n', ns_a),  dnl vagina
