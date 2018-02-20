@@ -46,6 +46,10 @@ class Module(object):
     def global_config(cls):
         return cls.bot.config
 
+    @classproperty
+    def server(cls):
+        return list(cls.client.servers)[0]
+
     @classmethod
     def get_channel(cls, name):
         id = cls.global_config['channels'][name]
@@ -96,6 +100,9 @@ async def on_ready():
     await asyncio.gather(
         *[mod.on_ready() for mod in bot.modules]
     )
+    if not client.servers:
+        client.loop.stop()  # This can't be sequenced differently and causes another vomit. Oh well.
+        raise RuntimeError('Uhhh...this client is not connected to any servers. That\'s probably an issue, because this bot won\'t do anything in that case. Or shouldn\'t. If you know what you\'re doing, comment out this warning :)')
 
 loop = client.loop
 
