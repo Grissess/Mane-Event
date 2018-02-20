@@ -1,8 +1,8 @@
 {
 	"token": "YOUR BOT TOKEN GOES HERE",
 	"owner": {
-		"name": "Alabaster",
-		"id": "96613893257854976"
+		"name": "Grissess",
+		"id": "150415367439646720"
 	},
 	"database_file": "bot.sqlite3",
 	"channels": {
@@ -25,7 +25,7 @@
 		},
 		"censor": {
 			"re": true,
-			"profanity_file": "vulgar.re",
+			"profanity_file": "minimal.re",
 			"crisis_file": "crisis.re",
 			"action": "test",
 			"ban_score": 25,
