@@ -38,7 +38,11 @@ class Module(bot.Module):
         super().__init__(config)
 
         self.goal_time = datetime.time(*self.config['at'])
-        self.goal = self.at_goal_time(datetime.datetime.now() + self.ONE_DAY)
+        # XXX Dedup this
+        self.goal = self.at_goal_time(datetime.datetime.now())
+        if datetime.datetime.now() >= self.goal:
+            self.goal += self.ONE_DAY
+        print('Goodmorning happens at', self.goal)
         self.con_dt = datetime.datetime(*self.config['convention'])
 
     def at_goal_time(self, dt):

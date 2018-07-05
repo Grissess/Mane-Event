@@ -38,7 +38,11 @@ class Module(bot.Module):
 
         self.birthdays = BirthdayDB(bot.db)
         self.goal_time = datetime.time(*self.config['at'])
-        self.goal = self.at_goal_time(datetime.datetime.now() + self.ONE_DAY)
+        #self.goal = self.at_goal_time(datetime.datetime.now() + self.ONE_DAY)
+        self.goal = self.at_goal_time(datetime.datetime.now())
+        if datetime.datetime.now() >= self.goal:
+            self.goal += self.ONE_DAY
+        print('Birthdays happens at', self.goal)
 
     def at_goal_time(self, dt):
         return dt.replace(
